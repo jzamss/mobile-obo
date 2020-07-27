@@ -35,6 +35,7 @@ const dropTables = [
   `DROP TABLE IF EXISTS terminal;`,
   `DROP TABLE IF EXISTS permittype;`,
   `DROP TABLE IF EXISTS permit;`,
+  `DROP TABLE IF EXISTS finding;`,
 ];
 
 const clearAllTables = [
@@ -43,11 +44,13 @@ const clearAllTables = [
   `DELETE FROM terminal;`,
   `DELETE FROM permittype;`,
   `DELETE FROM permit;`,
+  `DELETE FROM finding;`,
 ];
 
 const clearTxnTables = [
   `DELETE FROM permittype;`,
   `DELETE FROM permit;`,
+  `DELETE FROM finding;`,
 ];
 
 const clearCredentials = [
@@ -110,6 +113,18 @@ const createTables = [
   CREATE INDEX ix_state ON permit (state)
   ;
   CREATE INDEX ix_permitno ON permit (permitno)
+  ;
+`,
+
+  `CREATE TABLE IF NOT EXISTS finding (
+    objid TEXT PRIMARY KEY NOT NULL, 
+    permitid TEXT NOT NULL,
+    type TEXT NOT NULL,
+    description TEXT NOT NULL,
+    photourl TEXT NULL
+  )
+  ;
+  CREATE INDEX ix_permitid ON finding (permitid)
   ;
 `,
 ];

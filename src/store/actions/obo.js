@@ -4,6 +4,8 @@ export const SET_PERMIT_TYPES = "SET_PERMIT_TYPES";
 export const SET_PERMITS = "SET_PERMITS";
 export const SET_PERMIT = "SET_PERMIT";
 export const UPDATE_PERMIT = "UPDATE_PERMIT";
+export const SET_FINDINGS = "SET_FINDINGS";
+export const SET_FINDING = "SET_FINDING";
 
 import DUMMY_DATA from "../DUMMY_DATA";
 
@@ -36,7 +38,7 @@ export const downloadPermitTypes = async ({ user, updateStatus }) => {
 export const loadPermits = async (permitType) => {
   return async (dispatch) => {
     const permits = await db.getList({
-      schema: "permit"
+      schema: "permit",
     });
     // const permits = await db.getList({
     //   schema: "permit",
@@ -47,11 +49,22 @@ export const loadPermits = async (permitType) => {
 };
 
 export const setPermit = (permit) => {
-  return {type: SET_PERMIT, permit};
-}
+  return { type: SET_PERMIT, permit };
+};
 
-
-
+export const loadFindings = ({ permit, findingType }) => {
+  return async (dispatch) => {
+    //TODO:
+    // const findings = await db.getList({
+    //   schema: "findings",
+    //   where: { permitid: permit.objid, type: findingType.type },
+    // });
+    const findings = DUMMY_DATA.findings.filter(
+      (f) => f.permitid === permit.objid && f.type === findingType.type
+    );
+    return dispatch({ type: SET_FINDINGS, findings });
+  };
+};
 
 const downloadPermitType = async ({
   user,

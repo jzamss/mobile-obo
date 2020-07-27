@@ -11,6 +11,7 @@ import PermitTypeListScreen from "../modules/Obo/PermitTypeListScreen";
 import DownloadScreen from "../modules/Obo/DownloadScreen";
 import PermitListScreen from "../modules/Obo/PermitListScreen";
 import PermitScreen from "../modules/Obo/PermitScreen";
+import FindingListScreen from "../modules/Obo/FindingListScreen";
 
 const LogoutNavigator = createStackNavigator(
   {
@@ -33,6 +34,7 @@ const OboNavigator = createStackNavigator(
     Download: DownloadScreen,
     Permits: PermitListScreen,
     Permit: PermitScreen,
+    Findings: FindingListScreen,
   },
   defaultNavigationOptions
 );

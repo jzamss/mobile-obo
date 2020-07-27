@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import Permit from "./components/Permit";
-import { useSelector } from "react-redux";
 import { Fonts, TouchableComponent } from "../../rsi-react-native";
+
+import { oboActions } from "../actions"
+import Permit from "./components/Permit";
 
 const Finding = ({ finding, onSelect }) => {
   return (
@@ -18,9 +20,11 @@ const Finding = ({ finding, onSelect }) => {
 
 const PermitScreen = (props) => {
   const permit = useSelector((state) => state.obo.permit);
+  const dispatch = useDispatch();
 
-  const openFinding = (finding) => {
-      console.log("Open finding", finding)
+  const openFinding = async (findingType) => {
+      dispatch(await oboActions.loadFindings({permit, findingType}));
+      props.navigation.navigate("Findings", {title: findingType.title});
   };
 
   return (
@@ -31,7 +35,7 @@ const PermitScreen = (props) => {
       <View style={styles.findingContainer}>
         <Text style={styles.finding}>Findings</Text>
         <FlatList
-          keyExtractor={(item) => item.title}
+          keyExtractor={(item) => item.type}
           data={permit.findings}
           renderItem={({ item }) => (
             <Finding finding={item} onSelect={openFinding} />
