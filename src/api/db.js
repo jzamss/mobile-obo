@@ -33,12 +33,16 @@ const dropTables = [
   `DROP TABLE IF EXISTS user;`,
   `DROP TABLE IF EXISTS connection;`,
   `DROP TABLE IF EXISTS terminal;`,
+  `DROP TABLE IF EXISTS permittype;`,
+  `DROP TABLE IF EXISTS permit;`,
 ];
 
 const clearAllTables = [
   `DELETE FROM user;`,
   `DELETE FROM connection;`,
   `DELETE FROM terminal;`,
+  `DELETE FROM permittype;`,
+  `DELETE FROM permit;`,
 ];
 
 const clearTxnTables = [
@@ -74,5 +78,35 @@ const createTables = [
     terminalid TEXT PRIMARY KEY NOT NULL, 
     macaddress TEXT NULL
 )
+`,
+
+  `CREATE TABLE IF NOT EXISTS permittype (
+    objid TEXT PRIMARY KEY NOT NULL, 
+    title TEXT NOT NULL,
+    recordcount INTEGER NOT NULL,
+    completed INTEGER NOT NULL,
+    assigneeid TEXT NOT NULL
+  )
+`,
+
+  `CREATE TABLE IF NOT EXISTS permit (
+    objid TEXT PRIMARY KEY NOT NULL, 
+    permittypeid TEXT NOT NULL,
+    state TEXT NOT NULL,
+    seqno TEXT NOT NULL,
+    permitno TEXT NOT NULL,
+    permitteename TEXT NOT NULL,
+    permitteeaddress TEXT NOT NULL,
+    title TEXT NOT NULL,
+    lng REAL,
+    lat REAL
+  )
+  ;
+  CREATE INDEX ix_permittype ON permit (permittype)
+  ;
+  CREATE INDEX ix_state ON permit (state)
+  ;
+  CREATE INDEX ix_permitno ON permit (permitno)
+  ;
 `,
 ];

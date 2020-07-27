@@ -1,4 +1,4 @@
-import {db} from "../../rsi-react-native";
+import { db } from "../../rsi-react-native";
 import Connection from "../../models/Connection";
 
 const connectionSchema = { schema: "connection" };

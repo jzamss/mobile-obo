@@ -5,9 +5,6 @@ import { SimpleListItem } from "../../rsi-react-native";
 const SettingsScreen = (props) => {
   const settings = [
     { routeName: "Connection", title: "Connection", },
-    { routeName: "Computation", title: "Computation Rate Rules", ruleType: "consumption" },
-    { routeName: "Billing", title: "Billing Rules", ruleType: "billing" },
-    { routeName: "Printer", title: "Printer Setup", },
   ];
 
   const openItemHandler = (item) => {
@@ -22,7 +19,7 @@ const SettingsScreen = (props) => {
         renderItem={(itemData) => (
           <SimpleListItem
             title={itemData.item.title}
-            data={itemData.item}
+            item={itemData.item}
             onPress={openItemHandler}
           />
         )}

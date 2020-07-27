@@ -11,22 +11,21 @@ import {
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 
-
 const SimpleListItem = (props) => {
   let TouchableComp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableComp = TouchableNativeFeedback;
   }
   return (
-    <View style={{ ...styles.container, ...props.style }}>
-      <TouchableComp onPress={() => props.onPress(props.data)}>
+    <TouchableComp onPress={() => props.onPress(props.item)}>
+      <View style={{ ...styles.container, ...props.style }}>
         {props.children ? (
           props.children
         ) : (
           <Text style={styles.title}>{props.title}</Text>
         )}
-      </TouchableComp>
-    </View>
+      </View>
+    </TouchableComp>
   );
 };
 

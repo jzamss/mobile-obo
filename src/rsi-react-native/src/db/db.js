@@ -56,7 +56,8 @@ const executeSql = (sql, params) => {
   return promise;
 };
 
-export const initDb = (dbName, tables) => {
+// export const initDb = (dbName, tables) => {
+const initDb = (dbName, tables) => {
   db = SQLite.openDatabase(dbName);
 
   initTables(tables)
@@ -67,7 +68,8 @@ export const initDb = (dbName, tables) => {
     });
 };
 
-export const getBySql = async (params) => {
+// export const getBySql = async (params) => {
+const getBySql = async (params) => {
   resolveFindBy(params);
   const [sql, values] = sqlBuilder.getBySql(params);
   const dbResult = await executeSql(sql, values);
@@ -85,14 +87,16 @@ export const getBySql = async (params) => {
   return list;
 };
 
-export const findBySql = async (params) => {
+// export const findBySql = async (params) => {
+const findBySql = async (params) => {
   params.limit = 1;
   const list = await getList(params);
   return list ? list[0] : null;
 };
 
 
-export const getList = async (params) => {
+// export const getList = async (params) => {
+const getList = async (params) => {
   resolveFindBy(params);
   const [sql, values] = sqlBuilder.getListSql(params);
   const dbResult = await executeSql(sql, values);
@@ -110,14 +114,16 @@ export const getList = async (params) => {
   return list;
 };
 
-export const find = async (params) => {
+// export const find = async (params) => {
+const find = async (params) => {
   resolveFindBy(params);
   params.limit = 1;
   const list = await getList(params);
   return list ? list[0] : null;
 };
 
-export const create = async (params, data = {}) => {
+// export const create = async (params, data = {}) => {
+const create = async (params, data = {}) => {
   const [sql, values] = sqlBuilder.getInsertSql(params, data);
   try {
     await executeSql(sql, values);
@@ -128,7 +134,8 @@ export const create = async (params, data = {}) => {
   }
 };
 
-export const update = async (params, data = {}) => {
+// export const update = async (params, data = {}) => {
+const update = async (params, data = {}) => {
   const [sql, values] = sqlBuilder.getUpdateSql(params, data);
   try {
     await executeSql(sql, values);
@@ -139,7 +146,8 @@ export const update = async (params, data = {}) => {
   }
 };
 
-export const remove = async (params) => {
+// export const remove = async (params) => {
+const remove = async (params) => {
   resolveFindBy(params);
   const [sql, values] = sqlBuilder.getDeleteSql(params);
   try {
@@ -150,7 +158,8 @@ export const remove = async (params) => {
   }
 };
 
-export const createEntity = (ModelClass, data) => {
+// export const createEntity = (ModelClass, data) => {
+const createEntity = (ModelClass, data) => {
   const entity = new ModelClass();
   for (key in entity) {
     if (entity.hasOwnProperty(key)) {
@@ -182,3 +191,16 @@ const resolveFindBy = (params) => {
     params.where = [whereClause.join(" AND "), findBy];
   }
 };
+
+
+export default {
+  initDb,
+  getBySql,
+  findBySql,
+  getList,
+  find,
+  create,
+  update,
+  remove,
+  createEntity,
+}

@@ -5,7 +5,7 @@ const getUniqueId = () => {
 }
 
 import { getService } from "../../rsi-react-native";
-import {db} from "../../rsi-react-native";
+import { db } from "../../rsi-react-native";
 
 const Service = getService();
 
@@ -42,6 +42,7 @@ export const registerTerminal = async (device) => {
     const svc = await Service.lookup("WaterworksMobileLoginService");
     const terminal = await svc.register(device);
     await db.create({ schema: terminalSchema, __DEBUG__: true }, terminal);
+    console.log("done")
   } catch (err) {
     console.log("registerTerminal ERROR", err);
     throw "An error occured registering terminal. Please try again.";
@@ -53,6 +54,7 @@ export const recoverTerminal = async () => {
   try {
     const svc = await Service.lookup("WaterworksMobileLoginService");
     const terminal = await svc.recover({ macaddress: deviceId });
+    console.log("TERMINAL", terminal)
     await db.create({ schema: terminalSchema, __DEBUG__: true }, terminal);
   } catch (err) {
     console.log("recoverTerminal ERROR", err);

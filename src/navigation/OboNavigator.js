@@ -7,7 +7,9 @@ import LogoutScreen from "../modules/Authentication/LogoutScreen";
 import SettingsScreen from "../modules/Settings/SettingsScreen";
 import ConnectionSettingScreen from "../modules/Settings/ConnectionSettingScreen";
 
-import HomeScreen from "../modules/Obo/HomeScreen";
+import PermitTypeListScreen from "../modules/Obo/PermitTypeListScreen";
+import DownloadScreen from "../modules/Obo/DownloadScreen";
+import PermitListScreen from "../modules/Obo/PermitListScreen";
 
 const LogoutNavigator = createStackNavigator(
   {
@@ -26,7 +28,9 @@ const SettingNavigator = createStackNavigator(
 
 const OboNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: PermitTypeListScreen,
+    Download: DownloadScreen,
+    Permits: PermitListScreen,
   },
   defaultNavigationOptions
 );
@@ -34,7 +38,7 @@ const OboNavigator = createStackNavigator(
 
 const tabs = [
   {name: 'Logout', screen: LogoutNavigator, icon: "log-out" },
-  {name: 'Home', screen: OboNavigator, icon: "home", IsInitialRoute: true },
+  {name: 'Permit Types', screen: OboNavigator, icon: "home", IsInitialRoute: true },
   {name: 'Settings', screen: SettingNavigator, icon: "settings"},
 ]
 

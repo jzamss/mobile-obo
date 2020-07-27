@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    width: 200,
+    width: 150,
   },
 
   title: {
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   registerTerminal: {
-    width: 450,
+    width: 300,
   },
   buttonText: {
     fontSize: Fonts.medium,

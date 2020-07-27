@@ -1,14 +1,20 @@
-// import { SET_ACCOUNTS, SET_ACCOUNT, SET_GEO_LOCATION } from "../actions/obo";
+import { SET_PERMIT_TYPES, SET_PERMITS, SET_PERMIT, UPDATE_PERMIT } from "../actions/obo";
 
 const initialState = {
+  permitTypes: [],
+  permits: [],
   permit: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case SET_ACCOUNTS:
-    //   return { ...state, accounts: action.accounts };
-    //   break;
+    case SET_PERMIT_TYPES:
+      return { ...state, permitTypes: action.permitTypes };
+      break;
+
+    case SET_PERMITS:
+      return { ...state, permits: action.permits };
+      break;
 
     // case SET_ACCOUNT:
     //   const acctIdx = state.accounts.findIndex(acct => acct.objid === action.account.objid);
@@ -16,7 +22,7 @@ export default (state = initialState, action) => {
     //   updatedAccounts[acctIdx] = action.account;
     //   return { accounts: updatedAccounts, account: action.account };
     //   break;
-    
+
     default:
       return state;
   }
