@@ -33,10 +33,20 @@ export const downloadPermitTypes = async ({ user, updateStatus }) => {
   }
 };
 
-
-
-
-
+export const loadPermits = async (permitType) => {
+  console.log("permitType", permitType)
+  return async (dispatch) => {
+    const permits = await db.getList({
+      schema: "permit"
+    });
+    console.log("Permits", permits)
+    // const permits = await db.getList({
+    //   schema: "permit",
+    //   where: { permittypeid: permitType.objid },
+    // });
+    return dispatch({ type: SET_PERMITS, permits });
+  };
+};
 
 const downloadPermitType = async ({
   user,
@@ -81,6 +91,7 @@ const downloadPermits = async ({ permitType, updateStatus, status }) => {
   let start = permitType.readcount;
   while (start < permitType.recordcount) {
     const permits = await fetchPermits(permitType, start);
+    console.log("======== permits", permits)
     for (let i = 0; i < permits.length; i++) {
       const permit = permits[i];
       await db.create({ schema: "permit" }, permit);
@@ -90,4 +101,3 @@ const downloadPermits = async ({ permitType, updateStatus, status }) => {
     start += permits.length;
   }
 };
-

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: Fonts.medium,
     fontWeight: "bold",
-    paddingRight: 10,
+    paddingRight: 15,
   },
   text: {
     fontSize: Fonts.medium,

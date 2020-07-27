@@ -1,7 +1,7 @@
 class Permit {
     constructor() {
         this.objid = null;
-        this.permitid = null;
+        this.permittypeid = null;
         this.state = null;
         this.seqno = null;
         this.permitno = null;

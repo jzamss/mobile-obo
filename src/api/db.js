@@ -46,6 +46,8 @@ const clearAllTables = [
 ];
 
 const clearTxnTables = [
+  `DELETE FROM permittype;`,
+  `DELETE FROM permit;`,
 ];
 
 const clearCredentials = [
