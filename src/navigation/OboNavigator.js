@@ -10,6 +10,7 @@ import ConnectionSettingScreen from "../modules/Settings/ConnectionSettingScreen
 import PermitTypeListScreen from "../modules/Obo/PermitTypeListScreen";
 import DownloadScreen from "../modules/Obo/DownloadScreen";
 import PermitListScreen from "../modules/Obo/PermitListScreen";
+import PermitScreen from "../modules/Obo/PermitScreen";
 
 const LogoutNavigator = createStackNavigator(
   {
@@ -31,6 +32,7 @@ const OboNavigator = createStackNavigator(
     Home: PermitTypeListScreen,
     Download: DownloadScreen,
     Permits: PermitListScreen,
+    Permit: PermitScreen,
   },
   defaultNavigationOptions
 );

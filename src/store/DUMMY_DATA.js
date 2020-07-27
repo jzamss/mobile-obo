@@ -20,6 +20,10 @@ const permits = [
     title: "2 BR Apartment (Residential)",
     lng: null,
     lat: null,
+    findings: [
+      {title: "Electrical", count: 3},
+      {title: "Mechanical", count: 2},
+    ]
   },
   {
     objid: "P002",
@@ -32,6 +36,10 @@ const permits = [
     title: "2 BR Apartment (Commercial)",
     lng: null,
     lat: null,
+    findings: [
+      {title: "Electrical", count: 3},
+      {title: "Mechanical", count: 2},
+    ]
   },
 ];
 

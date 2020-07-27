@@ -101,7 +101,8 @@ const createTables = [
     permitteeaddress TEXT NOT NULL,
     title TEXT NOT NULL,
     lng REAL,
-    lat REAL
+    lat REAL,
+    findings TEXT NOT NULL
   )
   ;
   CREATE INDEX ix_permittype ON permit (permittype)

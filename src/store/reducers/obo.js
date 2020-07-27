@@ -16,6 +16,10 @@ export default (state = initialState, action) => {
       return { ...state, permits: action.permits };
       break;
 
+    case SET_PERMIT:
+      return { ...state, permit: action.permit };
+      break;
+
     // case SET_ACCOUNT:
     //   const acctIdx = state.accounts.findIndex(acct => acct.objid === action.account.objid);
     //   const updatedAccounts = [...state.accounts];

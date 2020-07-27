@@ -1,4 +1,4 @@
-export const toDate = (value) => {
+const toDate = (value) => {
   if (value === null || value === undefined) {
     return null;
   }
@@ -10,35 +10,35 @@ export const toDate = (value) => {
   return new Date(value);
 };
 
-export const serializeDate = (value) => {
+const serializeDate = (value) => {
   if (!value) return null;
   return value.toString();
 }
 
-export const deserializeDate = (value) => {
+const deserializeDate = (value) => {
   if (!value) return null;
   return new Date(value);
 }
 
-export const serializeJson = (value) => {
+const serializeJson = (value) => {
   if (!value) return null;
   return JSON.stringify(value);
 }
 
-export const deserializeJson = (value) => {
+const deserializeJson = (value) => {
   if (!value) return null;
   return JSON.parse(value);
 }
 
-export const serializeBoolean = (value) => {
+const serializeBoolean = (value) => {
   return value ? 1 : 0;
 }
 
-export const deserializeBoolean = (value) => {
+const deserializeBoolean = (value) => {
   return value === 1;
 }
 
-export const formatDate = (date) => {
+const formatDate = (date) => {
   if (!date) return null;
   const sdt = date.toISOString();
   return sdt.replace("T", " ").replace(/\..*/, '');
@@ -48,3 +48,15 @@ export const formatDate = (date) => {
 const isDate = (value) => {
   return typeof value.getMonth === "function";
 };
+
+
+export default {
+  toDate,
+  serializeDate,
+  deserializeDate,
+  serializeJson,
+  deserializeJson,
+  serializeBoolean,
+  deserializeBoolean,
+  formatDate ,
+}

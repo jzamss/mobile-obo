@@ -20,13 +20,13 @@ const GeoTagInfo = ({ seqno, hasGeoTag, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 80,
     height: "100%",
     justifyContent: "center",
     borderColor: "red",
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: Colors.listItemBorder,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 32,

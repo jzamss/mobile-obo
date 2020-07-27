@@ -1,33 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 
-import { Label, TouchableComponent, Status, Colors } from "../../rsi-react-native";
-import GeoTagInfo from "./components/GeoTagInfo";
+import { Status, Colors } from "../../rsi-react-native";
 import { oboActions } from "../actions";
+import Permit from "./components/Permit";
 
-
-const Permit = ({ permit, onSelect, onOpenGeoTag }) => {
-  const hasGeoTag = permit.lng !== null && permit.lat !== null;
-
-  return (
-    <View style={styles.itemContainer}>
-      <GeoTagInfo seqno={permit.seqno} hasGeoTag={hasGeoTag} onPress={() => onOpenGeoTag(permit)} />
-      <TouchableComponent onPress={() => onSelect(permit)}>
-        <View style={styles.permitInfo}>
-          <Label row caption="Permit No.:" value={permit.permitno} />
-          <Label row caption="Name:" value={permit.permitteename} />
-          <Label row caption="Address:" value={permit.permitteeaddress} />
-          <Label row caption="Title:" value={permit.title} />
-        </View>
-      </TouchableComponent>
-    </View>
-  );
-};
 
 const PermitListScreen = (props) => {
   const permitType = props.navigation.state.params.permitType; 
-  
   const permits = useSelector((state) => state.obo.permits);
   const [loading, setLoading] = useState(false);
   
@@ -50,8 +31,9 @@ const PermitListScreen = (props) => {
     }).catch(handleError);
   }, []);
 
-  const openPermit = (permit) => {
-    props.navigation.navigate("permit", { permit });
+  const openPermit = async (permit) => {
+    dispatch(oboActions.setPermit(permit));
+    props.navigation.navigate("Permit");
   };
 
   const openGeoTag = (permit) => {};
