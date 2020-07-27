@@ -4,6 +4,8 @@ import {
   SET_PERMIT,
   UPDATE_PERMIT,
   SET_FINDINGS,
+  SET_FINDING,
+  ADD_FINDING,
 } from "../actions/obo";
 
 const initialState = {
@@ -25,19 +27,44 @@ export default (state = initialState, action) => {
       break;
 
     case SET_PERMIT:
-      return { ...state, permit: action.permit, finding: null };
+      const idx = state.permits.findIndex(
+        (permit) => permit.objid === action.permit.objid
+      );
+      const updatedPermits = [...state.permits];
+      updatedPermits[idx] = action.permit;
+      return {
+        ...state,
+        permits: updatedPermits,
+        permit: action.permit,
+        findings: [],
+        finding: null,
+      };
       break;
 
     case SET_FINDINGS:
       return { ...state, findings: action.findings };
       break;
 
-    // case SET_ACCOUNT:
-    //   const acctIdx = state.accounts.findIndex(acct => acct.objid === action.account.objid);
-    //   const updatedAccounts = [...state.accounts];
-    //   updatedAccounts[acctIdx] = action.account;
-    //   return { accounts: updatedAccounts, account: action.account };
-    //   break;
+    case SET_FINDING:
+      return { ...state, finding: action.finding };
+      break;
+
+    case ADD_FINDING:
+      const updatedFindings = [...state.findings];
+      updatedFindings.push(action.finding);
+      const updatedPermit = { ...state.permit };
+      updatedPermit.findings.forEach((finding) => {
+        if (finding.type === action.finding.type) {
+          finding.count += 1;
+        }
+      });
+      return {
+        ...state,
+        permit: updatedPermit,
+        findings: updatedFindings,
+        finding: action.finding,
+      };
+      break;
 
     default:
       return state;

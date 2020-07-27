@@ -8,7 +8,7 @@ const Permit = ({ permit, onSelect, onOpenGeoTag }) => {
   
     return (
       <View style={styles.container}>
-        <GeoTagInfo seqno={permit.seqno} hasGeoTag={hasGeoTag} onPress={() => onOpenGeoTag(permit)} />
+        <GeoTagInfo data={permit} seqno={permit.seqno} hasGeoTag={hasGeoTag} onPress={onOpenGeoTag} />
         <TouchableComponent onPress={() => onSelect(permit)}>
           <View style={styles.permitInfo}>
             <Label row caption="Permit No.:" value={permit.permitno} />

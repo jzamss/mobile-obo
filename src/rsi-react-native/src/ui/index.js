@@ -1,5 +1,6 @@
 export { default as Button } from "./Button";
 export { default as Container } from "./Container";
+export { default as FloatingButton } from "./FloatingButton";
 export { default as HeaderButton } from "./HeaderButton";
 export { default as IconInput } from "./IconInput";
 export { default as Input } from "./Input";

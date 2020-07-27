@@ -9,7 +9,7 @@ const Label = (props) => {
   return (
     <View style={{ ...containerStyle, ...props.style }}>
       <Text style={{...styles.label, ...props.labelStyle}}>{props.caption}</Text>
-      <Text style={{ ...styles.text, ...props.textStyle }}>{props.value}</Text>
+        <Text style={{ ...styles.text, ...props.textStyle }}>{props.value}</Text>
     </View>
   );
 };

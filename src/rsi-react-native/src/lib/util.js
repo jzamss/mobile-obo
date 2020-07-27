@@ -15,4 +15,9 @@ export const mapNumber = (number, in_min, in_max, out_min, out_max) => {
   );
 };
 
+export const capitalizeFirstChar = str => {
+  if (!str) return str;
+  return str[0].toUpperCase() + str.substring(1);
+}
+
 

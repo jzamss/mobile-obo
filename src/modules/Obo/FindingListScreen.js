@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Status,
   Colors,
   ImagePicker,
   TouchableComponent,
+  FloatingButton
 } from "../../rsi-react-native";
 import { oboActions } from "../actions";
 
@@ -26,10 +27,17 @@ const FindingItem = ({ finding, onSelect }) => {
 const FindingListScreen = (props) => {
   const permit = useSelector((state) => state.obo.permit);
   const findings = useSelector((state) => state.obo.findings);
+  const findingType = props.navigation.getParam("findingType");
+  const dispatch = useDispatch();
 
   const openFinding = (finding) => {
-    console.log("open finding", finding);
+    dispatch(oboActions.setFinding(finding));
+    props.navigation.navigate("Finding", { findingType, mode: "read" });
   };
+
+  const addFinding = () => {
+    props.navigation.navigate("Finding", { findingType, mode: "create" });
+  }
 
   return (
     <View style={styles.screen}>
@@ -43,14 +51,17 @@ const FindingListScreen = (props) => {
           <FindingItem finding={item} onSelect={openFinding} />
         )}
       />
+      <View style={styles.buttonContainer}>
+        <FloatingButton onPress={addFinding}/>
+      </View>
     </View>
   );
 };
 
 FindingListScreen.navigationOptions = (navData) => {
-  const title = navData.navigation.getParam("title");
+  const findingType = navData.navigation.getParam("findingType");
   return {
-    headerTitle: `${title} Findings`,
+    headerTitle: `${findingType.title} Findings`,
   };
 };
 
@@ -65,15 +76,17 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    flexDirection: "row",
     borderWidth: 1,
     borderColor: Colors.listItemBorder,
-    marginVertical: 5,
+    marginVertical: 2,
     padding: 5,
   },
   itemText: {
     fontSize: 18,
   },
+  buttonContainer: {
+    alignItems: "flex-end"
+  }
 });
 
 export default FindingListScreen;

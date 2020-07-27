@@ -108,7 +108,7 @@ const LoginScreen = (props) => {
   const onLoginHandler = async (user) => {
     setIsLogging(true);
     try {
-      await dispatch(authActions.login(user));
+      dispatch( await authActions.login(user));
     } catch (err) {
       setIsLogging(false);
       Alert.alert("Authentication Error!", err, [{ text: "Okay" }]);
@@ -130,7 +130,7 @@ const LoginScreen = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.navigation.navigate("Water");
+      props.navigation.navigate("Obo");
     } else {
       loadTerminalStatus();
     }

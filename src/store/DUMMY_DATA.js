@@ -19,11 +19,7 @@ const permits = [
     permitteeaddress: "Cebu City, Philippines",
     title: "2 BR Apartment (Residential)",
     lng: null,
-    lat: null,
-    findings: [
-      {type: "electrical", title: "Electrical", count: 3},
-      {type: "mechanical", title: "Mechanical", count: 2},
-    ]
+    lat: null
   },
   {
     objid: "P002",
@@ -35,23 +31,11 @@ const permits = [
     permitteeaddress: "Cebu City, Philippines",
     title: "2 BR Apartment (Commercial)",
     lng: null,
-    lat: null,
-    findings: [
-      {type: "electrical", title: "Electrical", count: 3},
-      {type: "mechanical", title: "Mechanical", count: 2},
-    ]
+    lat: null
   },
 ];
-
-const findings = [
-  {objid: "F01", permitid: "P002", type: "electrical", description: "Discrepancy in plan (Section 1a)", fileid: null},
-  {objid: "F02", permitid: "P002", type: "electrical", description: "Wrong wiring", fileid: null},
-  {objid: "F03", permitid: "P002", type: "mechanical", description: "Incorrect Wattage", fileid: null},
-]
-
 
 export default {
   permitTypes,
   permits,
-  findings
-}
+};

@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { TouchableComponent, Colors } from "../../../rsi-react-native";
 import { mapMarker, mapMarkerOutline } from "../../assets";
 
-const GeoTagInfo = ({ seqno, hasGeoTag, onPress }) => {
+const GeoTagInfo = ({ data, seqno, hasGeoTag, onPress }) => {
   const geoTagImage = hasGeoTag ? mapMarker : mapMarkerOutline;
 
   return (
-    <TouchableComponent onPress={onPress}>
+    <TouchableComponent onPress={() => onPress(data)}>
       <View style={styles.container}>
         <Text style={styles.title}>{seqno}</Text>
         <View style={styles.markerContainer}>

@@ -1,5 +1,3 @@
-import dbUtil from "../rsi-react-native/src/db/db-util";
-
 class Permit {
   constructor() {
     this.objid = null;
@@ -12,19 +10,6 @@ class Permit {
     this.title = null;
     this.lng = null;
     this.lat = null;
-    this.findings = [];
-  }
-
-  get _serializer() {
-    return {
-      findings: dbUtil.serializeJson,
-    };
-  }
-
-  get _deserializer() {
-    return {
-      findings: dbUtil.deserializeJson,
-    };
   }
 }
 

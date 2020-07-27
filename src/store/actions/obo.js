@@ -1,4 +1,4 @@
-import { db } from "../../rsi-react-native";
+import { db, capitalizeFirstChar } from "../../rsi-react-native";
 
 export const SET_PERMIT_TYPES = "SET_PERMIT_TYPES";
 export const SET_PERMITS = "SET_PERMITS";
@@ -6,6 +6,7 @@ export const SET_PERMIT = "SET_PERMIT";
 export const UPDATE_PERMIT = "UPDATE_PERMIT";
 export const SET_FINDINGS = "SET_FINDINGS";
 export const SET_FINDING = "SET_FINDING";
+export const ADD_FINDING = "ADD_FINDING";
 
 import DUMMY_DATA from "../DUMMY_DATA";
 
@@ -48,23 +49,68 @@ export const loadPermits = async (permitType) => {
   };
 };
 
+const findingTypes = [
+  {type: "electrical", title: "Electrical", count: 0},
+  {type: "mechanical", title: "Mechanical", count: 0},
+]
+
 export const setPermit = (permit) => {
-  return { type: SET_PERMIT, permit };
+  return async dispatch => {
+    let sql = "SELECT type, count(*) as count FROM finding "
+    const findings = await db.getBySql({sql, where: {permitid: permit.objid}, groupBy: "type"});
+    for (let i = 0; i < findings.length; i++) {
+      const finding = findings[i];
+      finding.title = capitalizeFirstChar(finding.type) + " Findings";
+    }
+
+    const missingFindingTypes = [];
+    for (let i = 0; i < findingTypes.length; i++) {
+      const ft = findingTypes[i];
+      if (findings.findIndex(f => f.type === ft.type) < 0) {
+        missingFindingTypes.push(ft);
+      }
+    }
+    findings.push(...missingFindingTypes);
+    permit.findings = findings;
+    return dispatch({ type: SET_PERMIT, permit });
+  }
 };
 
 export const loadFindings = ({ permit, findingType }) => {
   return async (dispatch) => {
-    //TODO:
-    // const findings = await db.getList({
-    //   schema: "findings",
-    //   where: { permitid: permit.objid, type: findingType.type },
-    // });
-    const findings = DUMMY_DATA.findings.filter(
-      (f) => f.permitid === permit.objid && f.type === findingType.type
-    );
+    const findings = await db.getList({
+      schema: "finding",
+      where: { permitid: permit.objid, type: findingType.type },
+    });
+    console.log("load findings", findings)
     return dispatch({ type: SET_FINDINGS, findings });
   };
 };
+
+export const setFinding = (finding) => {
+  return { type: SET_FINDING, finding };
+};
+
+export const saveLocation = (permit, location) => {
+  return async (dispatch) => {
+    const updatedPermit = { ...account };
+    updatedPermit.lat = location.lat;
+    updatedPermit.lng = location.lng;
+    await db.update({ schema: "permit" }, updatedPermit);
+    return dispatch(setPermit(updatedPermit));
+  };
+};
+
+export const createFinding = ({permit, finding}) => {
+  return async dispatch => {
+    finding.objid = permit.objid + (Math.random() * 8).toString();
+    console.log("create finding", finding)
+    console.log("CREATE FINDING", finding)
+    await db.create({schema: "finding"}, finding);
+    return dispatch({type: ADD_FINDING, finding});
+  }
+}
+
 
 const downloadPermitType = async ({
   user,

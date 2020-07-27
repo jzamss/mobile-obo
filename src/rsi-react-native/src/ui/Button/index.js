@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.buttonColor,
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 30,
     flexDirection: "row",
     justifyContent: "space-evenly",

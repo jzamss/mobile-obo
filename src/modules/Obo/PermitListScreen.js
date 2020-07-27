@@ -32,11 +32,24 @@ const PermitListScreen = (props) => {
   }, []);
 
   const openPermit = async (permit) => {
-    dispatch(oboActions.setPermit(permit));
+    dispatch(await oboActions.setPermit(permit));
     props.navigation.navigate("Permit");
   };
 
-  const openGeoTag = (permit) => {};
+  const openGeoTag = (permit) => {
+    let location;
+    if (!!permit.lng && !!permit.lat) {
+      location = { lng: permit.lng, lat: permit.lat };
+    }
+    props.navigation.navigate("GeoTag", {
+      acctname: permit.permitteename,
+      address: permit.permitteeaddress,
+      data: permit,
+      location: location,
+      readOnly: /completed/i.test(permit.state),
+      saveLocation: oboActions.saveLocation(permit, location),
+    });
+  };
 
   return (
     <View style={styles.screen}>

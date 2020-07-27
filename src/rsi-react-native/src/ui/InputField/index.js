@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Platform, TextInput } from "react-native";
+import { View, StyleSheet, Platform, TextInput, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import uiTheme from "../Theme"
+import uiTheme from "../Theme";
+import Button from "../Button";
 
 class InputField extends Component {
   state = {
@@ -32,34 +33,36 @@ class InputField extends Component {
     if (!this.props.icon) return null;
 
     const icon = (Platform.OS === "android" ? "md-" : "ios-") + this.props.icon;
-    return (
-      <Ionicons
-        name={icon}
-        size={30}
-        color={uiTheme.colors.primary}
-      />
-    );
+    return <Ionicons name={icon} size={30} color={uiTheme.colors.primary} />;
   };
 
   render() {
     const rounded = this.props.rounded ? styles.rounded : {};
+    const readOnly = !!this.props.readOnly;
     return (
       <View
         style={{
           ...styles.inputContainer,
           ...rounded,
-          ...{width: this.props.width || null},
-          ...this.props.containerStyle
+          ...{ width: this.props.width || null },
+          ...this.props.containerStyle,
         }}
       >
         {this.getIconComponent()}
-        <TextInput
-          {...this.props}
-          style={{ ...styles.input, ...this.props.inputStyle }}
-          value={this.state.value}
-          onChangeText={this.textChangeHandler}
-          onBlur={this.lostFocusHandler}
-        />
+        {readOnly && (
+          <Text style={{ ...styles.input, ...this.props.inputStyle }}>
+            {this.state.value}
+          </Text>
+        )}
+        {!readOnly && (
+          <TextInput
+            {...this.props}
+            style={{ ...styles.input, ...this.props.inputStyle }}
+            value={this.state.value}
+            onChangeText={this.textChangeHandler}
+            onBlur={this.lostFocusHandler}
+          />
+        )}
       </View>
     );
   }
@@ -83,6 +86,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: uiTheme.fonts.large,
     color: uiTheme.text.color,
+    width: "100%"
   },
 });
 

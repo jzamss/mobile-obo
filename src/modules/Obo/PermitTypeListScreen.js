@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import {
-  Separator,
   SimpleListItem,
   Label,
   Fonts,
-  Colors,
   Container,
-  Status,
   Loading,
   Button,
 } from "../../rsi-react-native";
@@ -95,16 +92,9 @@ const PermitTypeListScreen = (props) => {
   );
 };
 
-PermitTypeListScreen.navigationOptions = (navData => {
-  return {
-    headerTitle: "Permit Types"
-  }
-});
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    marginHorizontal: 20,
     justifyContent: "space-between",
   },
   buttonContainer: {
